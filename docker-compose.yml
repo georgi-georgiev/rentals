@@ -1,0 +1,27 @@
+version: '3.6'
+services:
+  rentals:
+    container_name: "rentals"
+    depends_on:
+      - postgres
+    image: ${DOCKER_REGISTRY-}rentals
+    ports:
+      - "5353:5353"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+        - .env
+
+  postgres:
+    image: mdillon/postgis:11
+    restart: always
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=testingwithrentals
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./sql-init.sql:/docker-entrypoint-initdb.d/sql-init.sql

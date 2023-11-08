@@ -1,0 +1,786 @@
+basePath: /api/v1
+definitions:
+  gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  inputs.CreateChannel:
+    properties:
+      name:
+        example: adc
+        type: string
+      token:
+        example: "124321"
+        type: string
+    required:
+    - name
+    - token
+    type: object
+  inputs.CreateClient:
+    properties:
+      base_url:
+        example: https://adc-stg.sts.cns.bg/
+        type: string
+      channel_id:
+        example: 1
+        type: integer
+      name:
+        example: test
+        type: string
+      provider:
+        example: http://keycloak-identity-server.adc-stg.svc.cluster.local/
+        type: string
+      realm:
+        example: adc
+        type: string
+      root_url:
+        example: https://adc-stg.sts.cns.bg/
+        type: string
+      should_set_identity:
+        example: false
+        type: boolean
+    required:
+    - channel_id
+    - name
+    type: object
+  inputs.CreateDocument:
+    properties:
+      document_class:
+        example: 1
+        type: integer
+      external_reference:
+        example: 10000
+        type: integer
+      product_id:
+        example: 2
+        type: integer
+      remaining_trips:
+        example: 1
+        type: integer
+      static_qr:
+        example: false
+        type: boolean
+    required:
+    - document_class
+    - product_id
+    - remaining_trips
+    type: object
+  inputs.CreateProductSale:
+    properties:
+      active_from:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      active_to:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      for_sale_from:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      for_sale_to:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      product_id:
+        example: 1
+        type: integer
+    required:
+    - active_from
+    - active_to
+    - for_sale_from
+    - for_sale_to
+    - product_id
+    type: object
+  inputs.Pos:
+    properties:
+      blocked:
+        example: true
+        type: boolean
+      name:
+        example: SUMC1020
+        type: string
+      registered:
+        example: false
+        type: boolean
+      token:
+        example: .eJxti8EKAiEURX8l3JbxtKeOblvXJlqL6RsYiHEYnYGI_j2HtsHd3HPPfbP6mog5lmgdIrEDW5Yhtd6TRuwekqNAw9EkzYOOitsAXQ-kAAk3u9Dsf4_b_XK21kKjUy7-_xJnCpWSr6VxCVJyEFzqnUAH6NAcT1K17AEcbP4ankOzc7OveST2-QJ_WDE1.xItJ1rY5OJVfVPCGS8bYLB5ezY0
+        type: string
+    type: object
+  inputs.PosUpdate:
+    properties:
+      blocked:
+        example: true
+        type: boolean
+      name:
+        example: SUMC1020
+        type: string
+      registered:
+        example: false
+        type: boolean
+      token:
+        example: .eJxti8EKAiEURX8l3JbxtKeOblvXJlqL6RsYiHEYnYGI_j2HtsHd3HPPfbP6mog5lmgdIrEDW5Yhtd6TRuwekqNAw9EkzYOOitsAXQ-kAAk3u9Dsf4_b_XK21kKjUy7-_xJnCpWSr6VxCVJyEFzqnUAH6NAcT1K17AEcbP4ankOzc7OveST2-QJ_WDE1.xItJ1rY5OJVfVPCGS8bYLB5ezY0
+        type: string
+    type: object
+  inputs.UpdateMerchant:
+    properties:
+      pos:
+        type: integer
+      products:
+        items:
+          type: integer
+        type: array
+    required:
+    - products
+    type: object
+  outputs.Catalog:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/outputs.Product'
+        type: array
+    type: object
+  outputs.CreateChannel:
+    properties:
+      id:
+        example: 1
+        type: integer
+    type: object
+  outputs.CreateClient:
+    properties:
+      client_secret:
+        example: dc444f26-4336-4bc6-91fc-4850594aa30a
+        type: string
+      id:
+        example: 1
+        type: integer
+      merchant_id:
+        example: 1
+        type: integer
+    type: object
+  outputs.CreateDocument:
+    properties:
+      id:
+        example: 1
+        type: integer
+    type: object
+  outputs.CreateProductSale:
+    properties:
+      id:
+        example: 1
+        type: integer
+    type: object
+  outputs.GetChannel:
+    properties:
+      name:
+        example: adc
+        type: string
+      token:
+        example: "124321"
+        type: string
+    type: object
+  outputs.GetClient:
+    properties:
+      channel_id:
+        example: 1
+        type: integer
+      merchant_id:
+        example: 1
+        type: integer
+      name:
+        example: test
+        type: string
+    type: object
+  outputs.GetDocument:
+    properties:
+      document_class:
+        example: 1
+        type: integer
+      external_reference:
+        example: 1
+        type: integer
+      product_id:
+        example: 1
+        type: integer
+      remaining_trips:
+        example: 1
+        type: integer
+      static_qr:
+        example: false
+        type: boolean
+    type: object
+  outputs.GetMerchant:
+    properties:
+      pos:
+        type: integer
+      products:
+        items:
+          type: integer
+        type: array
+    type: object
+  outputs.GetMerchants:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      pos:
+        type: integer
+    type: object
+  outputs.GetProductSale:
+    properties:
+      active_from:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      active_to:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      for_sale_from:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      for_sale_to:
+        example: "2021-09-02T15:04:05.000Z"
+        type: string
+      product_id:
+        example: 1
+        type: integer
+    type: object
+  outputs.Pos:
+    properties:
+      blocked:
+        example: true
+        type: boolean
+      created:
+        example: "2021-10-01T15:04:05.000Z"
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: SUMC1020
+        type: string
+      registered:
+        example: false
+        type: boolean
+      token:
+        example: .eJxti8EKAiEURX8l3JbxtKeOblvXJlqL6RsYiHEYnYGI_j2HtsHd3HPPfbP6mog5lmgdIrEDW5Yhtd6TRuwekqNAw9EkzYOOitsAXQ-kAAk3u9Dsf4_b_XK21kKjUy7-_xJnCpWSr6VxCVJyEFzqnUAH6NAcT1K17AEcbP4ankOzc7OveST2-QJ_WDE1.xItJ1rY5OJVfVPCGS8bYLB5ezY0
+        type: string
+      updated:
+        example: "2021-10-01T15:04:05.000Z"
+        type: string
+    type: object
+  outputs.Product:
+    properties:
+      description_bg:
+        type: string
+      description_en:
+        type: string
+      group:
+        type: string
+      id:
+        type: integer
+      is_entry_parametrized:
+        type: boolean
+      is_line_parametrized:
+        type: boolean
+      line_type:
+        type: string
+      name_bg:
+        type: string
+      name_en:
+        type: string
+      parameters:
+        items:
+          type: string
+        type: array
+      price:
+        type: string
+      price_without_vat:
+        type: string
+      pricing_id:
+        type: integer
+      service_type:
+        type: string
+      time_before_usage:
+        type: string
+      transfers_allowed_minutes:
+        type: integer
+      transport_category:
+        properties:
+          allowed_transport:
+            items:
+              properties:
+                n_lines:
+                  type: integer
+                transport_types:
+                  items:
+                    type: integer
+                  type: array
+              type: object
+            type: array
+          id:
+            type: integer
+          name:
+            type: string
+        type: object
+      trips_count:
+        type: integer
+      validity:
+        type: string
+    type: object
+info:
+  contact:
+    email: ggeorgiev@cns.bg
+  description: business relationship management
+  title: Brm
+  version: "1.0"
+paths:
+  /catalog:
+    get:
+      consumes:
+      - application/json
+      description: catalog
+      parameters:
+      - description: test
+        in: query
+        name: client_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.Catalog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Catalog
+  /channel:
+    post:
+      consumes:
+      - application/json
+      description: create channel
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.CreateChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.CreateChannel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Create channel
+  /channel/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get channel
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.GetChannel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get channel
+  /channels:
+    get:
+      consumes:
+      - application/json
+      description: get channels
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.GetChannel'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get channels
+  /client:
+    post:
+      consumes:
+      - application/json
+      description: create client
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.CreateClient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.CreateClient'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Create client
+  /client/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get client
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.GetClient'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get client
+  /clients:
+    get:
+      consumes:
+      - application/json
+      description: get clients
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.GetClient'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get clients
+  /device:
+    get:
+      consumes:
+      - application/json
+      description: update pos
+      parameters:
+      - description: a1
+        in: query
+        name: client_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get Device Token By Client Name
+  /document:
+    post:
+      consumes:
+      - application/json
+      description: create document
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.CreateDocument'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.CreateDocument'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Create document
+  /document/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get document
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.GetDocument'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get document
+  /documents:
+    get:
+      consumes:
+      - application/json
+      description: get documents
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.GetDocument'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get documents
+  /merchant/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get merchant
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.GetMerchant'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get merchant
+    patch:
+      consumes:
+      - application/json
+      description: update merchant
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.UpdateMerchant'
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Update merchant
+  /merchants:
+    get:
+      consumes:
+      - application/json
+      description: get merchants
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.GetMerchants'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get merchants
+  /pos:
+    get:
+      consumes:
+      - application/json
+      description: get pos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.Pos'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get pos
+    patch:
+      consumes:
+      - application/json
+      description: update pos
+      parameters:
+      - description: "1"
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.PosUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.Pos'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Update pos
+    post:
+      consumes:
+      - application/json
+      description: insert pos
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.Pos'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.Pos'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Insert pos
+  /product_sale:
+    post:
+      consumes:
+      - application/json
+      description: create product sale
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/inputs.CreateProductSale'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.CreateProductSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Create product sale
+  /product_sale/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get product sale
+      parameters:
+      - description: "1"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outputs.GetProductSale'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get product sale
+  /product_sales:
+    get:
+      consumes:
+      - application/json
+      description: get product sales
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputs.GetProductSale'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab1_dev_cns_bg_topup_brm_pkg_http_err.HTTPError'
+      summary: Get product sales
+swagger: "2.0"

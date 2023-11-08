@@ -1,0 +1,28 @@
+server:
+  rootURL: "127.0.0.1"
+  host: "0.0.0.0"
+  port: "5353"
+  shutdownTimeout: 15000
+  timeout:
+    server: 70
+    read: 60
+    write: 60
+    idle: 10
+
+app:
+  name: "rentals"
+  version: "0.0.0"
+
+swagger:
+  host: "localhost:5353"
+
+postgres:
+  driver: "postgres"
+  dbname: "testingwithrentals"
+  username: "root"
+  password: "root"
+  host: "postgres"
+  port: "5432"
+  maxLifetime: 7200
+  maxOpenConns: 150
+  maxIdleConns: 50

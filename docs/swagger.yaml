@@ -1,0 +1,190 @@
+definitions:
+  app.HTTPError:
+    properties:
+      argument:
+        example: number
+        type: string
+      detail:
+        example: 'The parameters: limit, date were not provided'
+        type: string
+      expression:
+        example: greater
+        type: string
+      field:
+        example: email
+        type: string
+      placement:
+        example: field
+        type: string
+      reason:
+        example: invalidParameter
+        type: string
+      reason_code:
+        example: 150
+        type: integer
+      title:
+        example: required parameters are missing
+        type: string
+    type: object
+  app.HTTPErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/app.HTTPError'
+        type: array
+      status:
+        example: 400
+        type: integer
+      trace_id:
+        example: EJplcsCHuLu
+        type: string
+    type: object
+  app.LocationResponse:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      lat:
+        type: number
+      lng:
+        type: number
+      state:
+        type: string
+      zip:
+        type: string
+    type: object
+  app.PriceResponse:
+    properties:
+      day:
+        type: integer
+    type: object
+  app.RentalResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      length:
+        type: number
+      location:
+        $ref: '#/definitions/app.LocationResponse'
+      make:
+        type: string
+      model:
+        type: string
+      name:
+        type: string
+      price:
+        $ref: '#/definitions/app.PriceResponse'
+      primary_image_url:
+        type: string
+      sleeps:
+        type: integer
+      type:
+        type: string
+      user:
+        $ref: '#/definitions/app.UserResponse'
+      year:
+        type: integer
+    type: object
+  app.UserResponse:
+    properties:
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /rentals:
+    get:
+      consumes:
+      - application/json
+      description: by query
+      parameters:
+      - description: "100"
+        in: query
+        name: price_min
+        type: integer
+      - description: "500"
+        in: query
+        name: price_max
+        type: integer
+      - description: "10"
+        in: query
+        name: limit
+        type: integer
+      - description: "0"
+        in: query
+        name: offset
+        type: integer
+      - description: 1,2,3
+        in: query
+        name: ids
+        type: string
+      - description: 40.7128,-74.0060
+        in: query
+        name: near
+        type: string
+      - description: name DESC
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/app.RentalResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+      summary: Get all rentals
+  /rentals/{rental_id}:
+    get:
+      consumes:
+      - application/json
+      description: by id
+      parameters:
+      - description: "1"
+        in: query
+        name: rental_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.RentalResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.HTTPErrorResponse'
+      summary: Get rental
+swagger: "2.0"
